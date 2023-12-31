@@ -18,7 +18,6 @@ Particle::Particle(int id, float pos_x, float pos_y, float vel_x, float vel_y, f
     sf::Color randomColor(std::rand() % 256, std::rand() % 256, std::rand() % 256);
     s.setFillColor(randomColor);
     s.setRadius(radius);
-    if (id == -1) s.setFillColor(sf::Color::White);
 }
 
 void Particle::set_color(sf::Color color)
@@ -32,32 +31,20 @@ void Particle::render(sf::RenderWindow &window)
     window.draw(s);
 }
 
-void Particle::update(float screen_x, float screen_y, std::vector<Particle> particles)
+void Particle::update(float screen_x, float screen_y)
 {
     velocity.x += acceleration.x;
     velocity.y += acceleration.y;
 
     pos.x += velocity.x;
     pos.y += velocity.y;
-
     enforce_screen_boundaries(screen_x, screen_y);
 }
 
-void Particle::particle_collisions(std::vector<Particle> particles)
+void Particle::set_velocity(float vel_x, float vel_y)
 {
-    for (int i = 0; i < particles.size(); i++)
-    {
-        if (particles[i].particle_id != particle_id)
-        {
-            float distance = sqrt(pow((particles[i].pos.x - pos.x), 2) + pow((particles[i].pos.x - pos.x), 2));
-
-            // If these particles collide
-            if (distance <= particles[i].radius + radius)
-            {
-                std::cout << particle_id << std::endl;
-            }
-        }
-    }
+    velocity.x = vel_x;
+    velocity.y = vel_y;
 }
 
 void Particle::enforce_screen_boundaries(float boundary_x, float boundary_y)
