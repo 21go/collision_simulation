@@ -33,7 +33,7 @@ int main()
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     float random_x = static_cast<float>(rand()) / RAND_MAX * 10.0 - 5.0;
-                    float random_y = static_cast<float>(rand()) / RAND_MAX * 10.0 - 5.0;
+                    float random_y = static_cast<float>(rand()) / RAND_MAX * 5.0 - 10.0;
                     float magnitude = std::sqrt(random_x * random_x + random_y * random_y);
                     random_x /= magnitude;
                     random_y /= magnitude;
@@ -51,7 +51,7 @@ int main()
 
         for (int i = 0; i < particles.size(); i++)
         {
-            sf::Vector2f gravity_vector(0.0f, 1.0f);
+            sf::Vector2f gravity_vector(0.0f, 0.5f);
             particles[i].apply_force(gravity_vector);
             particles[i].update(screen_x, screen_y);
             particles[i].render(window);
